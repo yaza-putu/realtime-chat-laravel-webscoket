@@ -9,7 +9,8 @@
 
 ## Mini Chat Template Starter For Learn Realtime Data Websocket
 - link youtube :
-
+<br>
+for finished tutorial check in branch main
 ## ERD
 ![url](https://res.cloudinary.com/dk0053zbe/image/upload/v1658935067/chat-erd_lnsnvt.jpg)
 
