@@ -10,6 +10,9 @@
 ## Mini Chat Template Starter For Learn Realtime Data Websocket
 - link youtube :
 
+## ERD
+![url](https://res.cloudinary.com/dk0053zbe/image/upload/v1658935067/chat-erd_lnsnvt.jpg)
+
 ## How to install
 - clone this project
 - install vendor laravel
