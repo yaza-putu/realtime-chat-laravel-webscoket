@@ -8,9 +8,6 @@
 </p>
 
 ## Mini Chat Realtime Data With Laravel Websocket
-- link youtube :
-<br>
-for finished tutorial check in branch main
 
 ## ERD
 ![url](https://res.cloudinary.com/dk0053zbe/image/upload/v1658935067/chat-erd_lnsnvt.jpg)
