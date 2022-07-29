@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,18 @@ Route::middleware("guest")->group(function (){
 });
 
 Route::middleware("auth")->group(function (){
-    Route::get("/chat", [ChatController::class, "index"])->name("chat");
+    // messages
+    Route::prefix("/chat")->name("chat.")->group(function (){
+        Route::get("/", [ChatController::class, "index"])->name("index");
+        Route::get("/conversations/{room_id}", [ChatController::class, "loadingMessage"])->name("conversations");
+        Route::get("/histories", [ChatController::class, "getHistoryMessage"])->name("histories");
+        Route::post("/save", [ChatController::class, "saveChat"])->name("save");
+    });
+
+    // checkRoom
+    Route::get("room/check/{user_id}", [RoomController::class, 'checkRoom'])->name("check.room");
+
+    // logout
     Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 });
 

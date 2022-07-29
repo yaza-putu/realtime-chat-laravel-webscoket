@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
+    $granted = false;
+
+    $room = \App\Models\Room::findOrFail($roomId);
+    $room = explode(":", $room->users);
+    foreach ($room as $userId) {
+        if($userId == $user->id) {
+            $granted = true;
+        }
+    }
+    return $granted;
+});

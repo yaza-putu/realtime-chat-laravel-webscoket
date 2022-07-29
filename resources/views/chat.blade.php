@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Realtime Chat</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset("libs/toast-snackbar/mdtoast.min.css") }}">
 </head>
 <body>
 <div class="h-screen w-full flex antialiased text-gray-200 bg-gray-900 overflow-hidden">
@@ -55,40 +56,25 @@
                                 <path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"/>
                             </svg>
                         </button>
-                        <p>Your Story</p>
+                        <p>Contact</p>
                     </div>
-                    <div class="text-sm text-center mr-4"><div class="p-1 border-4 border-blue-600 rounded-full"><div class="w-16 h-16 relative flex flex-shrink-0">
-                                <img class="shadow-md rounded-full w-full h-full object-cover"
-                                     src="https://randomuser.me/api/portraits/women/1.jpg"
-                                     alt=""
-                                />
-                            </div></div><p class="truncate w-20">Nina</p></div>
+                    @foreach($users as $user)
+                        <div class="text-sm text-center mr-4"><div class="p-1 border-4 border-blue-600 rounded-full"><div class="w-16 h-16 relative flex flex-shrink-0">
+                                    <a href="#" class="add-chat" data-id="{{ $user->id }}">
+                                        <img class="shadow-md rounded-full w-full h-full object-cover"
+                                             src="https://randomuser.me/api/portraits/women/{{ $loop->iteration }}.jpg"
+                                             alt=""
+                                        />
+                                    </a>
+                                </div></div><p class="truncate w-20">{{ $user->name }}</p></div>
+                    @endforeach
                 </div>
                 <div class="contacts p-2 flex-1 overflow-y-scroll">
-                    <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative">
-                        <div class="w-16 h-16 relative flex flex-shrink-0">
-                            <img class="shadow-md rounded-full w-full h-full object-cover"
-                                 src="https://randomuser.me/api/portraits/men/1.jpg"
-                                 alt=""
-                            />
-                            <div class="absolute bg-gray-900 p-1 rounded-full bottom-0 right-0">
-                                <div class="bg-green-500 rounded-full w-3 h-3"></div>
-                            </div>
-                        </div>
-                        <div class="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
-                            <p class="font-bold">Tony Stark</p>
-                            <div class="flex items-center text-sm font-bold">
-                                <div class="min-w-0">
-                                    <p class="truncate">Hey, Are you there?</p>
-                                </div>
-                                <p class="ml-2 whitespace-no-wrap">10min</p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </section>
             <section class="flex flex-col flex-auto border-l border-gray-800">
-                <div class="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
+                <div class="chat hidden chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
                     <div class="flex">
                         <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
                             <img class="shadow-md rounded-full w-full h-full object-cover"
@@ -97,8 +83,7 @@
                             />
                         </div>
                         <div class="text-sm">
-                            <p class="font-bold">Scarlett Johansson</p>
-                            <p>Active 1h ago</p>
+                            <p class="font-bold chat-title mt-4"></p>
                         </div>
                     </div>
 
@@ -120,327 +105,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="chat-body p-4 flex-1 overflow-y-scroll">
-                    <div class="flex flex-row justify-start">
-                        <div class="w-8 h-8 relative flex flex-shrink-0 mr-4">
-                            <img class="shadow-md rounded-full w-full h-full object-cover"
-                                 src="https://randomuser.me/api/portraits/women/33.jpg"
-                                 alt=""
-                            />
-                        </div>
-                        <div class="messages text-sm text-gray-700 grid grid-flow-row gap-2">
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-t-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Hey! How are you?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Shall we go for Hiking this weekend?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-b-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Lorem ipsum
-                                    dolor sit
-                                    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="p-4 text-center text-sm text-gray-500">FRI 3:04 PM</p>
-                    <div class="flex flex-row justify-end">
-                        <div class="messages text-sm text-white grid grid-flow-row gap-2">
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-t-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Hey! How are you?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Shall we go for Hiking this weekend?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-b-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Lorem ipsum
-                                    dolor sit
-                                    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="p-4 text-center text-sm text-gray-500">SAT 2:10 PM</p>
-                    <div class="flex flex-row justify-start">
-                        <div class="w-8 h-8 relative flex flex-shrink-0 mr-4">
-                            <img class="shadow-md rounded-full w-full h-full object-cover"
-                                 src="https://randomuser.me/api/portraits/women/33.jpg"
-                                 alt=""
-                            />
-                        </div>
-                        <div class="messages text-sm text-gray-700 grid grid-flow-row gap-2">
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-t-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Hey! How are you?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Shall we go for Hiking this weekend?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center group">
-                                <p class="px-6 py-3 rounded-b-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">Lorem ipsum
-                                    dolor sit
-                                    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
- M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="p-4 text-center text-sm text-gray-500">12:40 PM</p>
-                    <div class="flex flex-row justify-end">
-                        <div class="messages text-sm text-white grid grid-flow-row gap-2">
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-t-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Hey! How are you?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Shall we go for Hiking this weekend?</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <a class="block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md" href="#">
-                                    <img class="absolute shadow-md w-full h-full rounded-l-lg object-cover" src="https://unsplash.com/photos/8--kuxbxuKU/download?force=true&w=640" alt="hiking"/>
-                                </a>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-b-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Lorem ipsum
-                                    dolor sit
-                                    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.</p>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-	 M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-	C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
-                                    </svg>
-                                </button>
-                                <button type="button" class="option-message">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="chat hidden chat-body p-4 flex-1 overflow-y-scroll">
                 </div>
-                <div class="chat-footer flex-none">
+                <div class="chat hidden chat-footer flex-none">
                     <div class="flex flex-row items-center p-4">
                         <button type="button" class="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-6 h-6">
                             <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
@@ -484,7 +151,13 @@ C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.
         </main>
     </div>
 </div>
+{{-- url --}}
+<input type="hidden" id="histories-url" value="{{ route("chat.histories") }}">
+<input type="hidden" id="save-url" value="{{ route("chat.save") }}">
+<input type="hidden" id="conversation-url" value="{{ route("chat.conversations", ["room_id" => ":room_id"]) }}">
+<input type="hidden" id="getroom-url" value="{{ route("check.room", ["user_id" => ":user_id"]) }}">
 @vite('resources/js/app.js')
+<script src="{{ asset("libs/toast-snackbar/mdtoast.min.js") }}"></script>
 <script src="{{ asset("assets/js/chat.js") }}"></script>
 </body>
 </html>

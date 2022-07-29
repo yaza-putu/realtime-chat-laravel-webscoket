@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Mini Chat Template Starter For Learn Realtime Data Websocket
+## Mini Chat Realtime Data With Laravel Websocket
 - link youtube :
 <br>
 for finished tutorial check in branch main

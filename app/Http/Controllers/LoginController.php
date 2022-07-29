@@ -26,7 +26,7 @@ class LoginController extends Controller
     {
         if ($request->ajax()) {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->remember? true : false)) {
-                $redirect = redirect()->intended(URL::route('chat'));
+                $redirect = redirect()->intended(URL::route('chat.index'));
                 return response()->json(['success'  => true,'message' => 'Login Berhasil', 'redirect' => $redirect->getTargetUrl()]);
             } else {
                 return response()->json(['success' => false, 'message'  => 'Login Gagal Silakan Masukan Email & Password yg benar']);
